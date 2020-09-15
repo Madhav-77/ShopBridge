@@ -10,12 +10,25 @@ export class ItemsTableComponent implements OnInit {
 
   constructor(private cart: CartService) { }
 
-  listArr;
+  listArr:any;
   ngOnInit(): void {
     this.cart.getItems().subscribe((data)=>{
       console.table(data);
       this.listArr = data;
     });
+  }
+
+  removeItems(itemId){
+
+    if(confirm("Are you sure to delete?")) {
+      this.cart.removeItems(itemId).subscribe((res)=>{
+        for (let i = 0; i < this.listArr.length; i++) {
+          if(this.listArr[i]['id']==itemId){
+            this.listArr.splice(i, 1);
+          }
+        }
+      });
+    }
   }
 
 }

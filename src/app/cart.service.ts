@@ -12,4 +12,20 @@ export class CartService {
   getItems(){
     return this.http.get(this.url);
   }
+
+  sendItemsData(data){
+    return this.http.post(this.url, data);
+  }
+
+  removeItems(itemId){
+    return this.http.delete(`${this.url}/${itemId}`)
+  }
+
+  getItemFromId(id){
+    return this.http.get(`${this.url}/${id}`);
+  }
+
+  updateItems(id, data){
+    return this.http.put(`${this.url}/${id}`, data);
+  }
 }

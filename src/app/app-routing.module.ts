@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'items-table',
     component: ItemsTableComponent
+  },
+  {
+    path: 'update/:id',
+    component: AddItemsComponent
   }
 ];
 

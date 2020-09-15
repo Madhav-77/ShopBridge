@@ -1,6 +1,13 @@
-<h3 class="title">Add Items</h3>
+<h3 *ngIf="idFromURL==undefined" class="title">Add Items</h3>
+<h3 *ngIf="idFromURL!=undefined" class="title">Update Items</h3>
 <div class="container col-md-4">
-    <form [formGroup]="addItemForm" (ngSubmit)="getItemsData()">
+    <div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Yayy!</strong>Item has been {{ alertText }} successfully.
+        <button type="button" (click)="alertDismiss()" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+    </div>
+    <form [formGroup]="addItemForm" (ngSubmit)="idFromURL==undefined ? addItemsData() : updateItems()">
         <div class="form-group">
             <label for="exampleInputEmail1">Title</label>
             <input type="text" formControlName="title" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">

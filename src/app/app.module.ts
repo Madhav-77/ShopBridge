@@ -8,12 +8,14 @@ import { AddItemsComponent } from './add-items/add-items.component';
 import { ItemsTableComponent } from './items-table/items-table.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UpdateItemComponent } from './update-item/update-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddItemsComponent,
-    ItemsTableComponent
+    ItemsTableComponent,
+    UpdateItemComponent
   ],
   imports: [
     BrowserModule,

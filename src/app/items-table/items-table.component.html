@@ -6,6 +6,8 @@
                 <th scope="col">Id</th>
                 <th scope="col">Title</th>
                 <th scope="col">Author</th>
+                <th scope="col">Action</th>
+                <th scope="col">View</th>
             </tr>
         </thead>
         <tbody>
@@ -13,6 +15,14 @@
                 <td scope="row">{{ list.id }}</td>
                 <td>{{ list.title }}</td>
                 <td>{{ list.author }}</td>
+                <td>
+                    <i (click)="removeItems(list.id)" class="fa fa-trash" aria-hidden="true"></i>
+                </td>
+                <td>
+                    <a routerLink="/update/{{ list.id }}">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a>
+                </td>
             </tr>
         </tbody>
     </table>
