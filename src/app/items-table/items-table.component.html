@@ -1,0 +1,19 @@
+<h3 class="title">Items Table</h3>
+<div class="container">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let list of listArr">
+                <td scope="row">{{ list.id }}</td>
+                <td>{{ list.title }}</td>
+                <td>{{ list.author }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

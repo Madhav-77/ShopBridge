@@ -1,0 +1,15 @@
+<h3 class="title">Add Items</h3>
+<div class="container col-md-4">
+    <form [formGroup]="addItemForm" (ngSubmit)="getItemsData()">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Title</label>
+            <input type="text" formControlName="title" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Author</label>
+            <input type="text" formControlName="author" class="form-control" id="exampleInputPassword1">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
