@@ -4,6 +4,12 @@ img {
     aspect-ratio: inherit;
 }
 
+button {
+    right: 0px;
+    bottom: 0px;
+    position: absolute;
+}
+
 .v-center {
     margin: 0;
     position: absolute;
@@ -13,7 +19,7 @@ img {
     transform: translate(-50%, -50%);
 }
 
-h6 {
+td {
     padding: 5px;
 }
 
@@ -25,7 +31,7 @@ h6 {
 }
 
 .description {
-    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
 }
 
 .btn-primary {
@@ -41,4 +47,8 @@ h6 {
 .btn-primary:disabled {
     background-color: #06A77D;
     border-color: #06A77D;
+}
+
+.container {
+    padding: 50px;
 }

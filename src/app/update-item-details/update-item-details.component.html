@@ -1,63 +1,63 @@
 <div *ngIf="item">
     <h2 class="page-title">{{item.name}}'s Details</h2>
-    <div class="container">
-        <form [formGroup]="inventoryForm" (submit)="save()">
-            <div class="row">
-                <!-- previews the image before uploading or displays current image -->
-                <div class="col-xl-6">
-                    <img [src]="imgURL" height="200" *ngIf="isImageChanged">
-                    <img src="http://localhost:5000/get-image/{{item.image}}" height="200" *ngIf="!isImageChanged">
-                </div>
-                <div class="col-xl-6">
-                    <div class="form-group">
-
-                        <label for='name'>Name</label>
-                        <input for='name' class="form-control" value="{{item.name}}" pattern="[a-zA-Z ]*" maxlength="50" required formControlName="name">
-
-                        <!-- name validation -->
-                        <div *ngIf="inventoryForm.get('name').invalid && inventoryForm.get('name').touched" class="error">
-                            <small *ngIf="inventoryForm.get('name').errors.pattern">Name not valid</small>
-                            <small *ngIf="inventoryForm.get('name').errors.required">Name is required</small>
-                        </div>
-                    </div>
-                    <div class="form-group description">
-
-                        <label for='desc'>Description</label>
-                        <textarea class="form-control" #box (keyup)="0" value="{{item.description}}" formControlName="description" placeholder="Description" maxlength="200" required></textarea>
-                        <small>The character count is {{box.value.length}}</small>
-
-                        <!-- description validation -->
-                        <small *ngIf="box.value.length<200"> The character count is {{box.value.length}}</small>
-                        <div *ngIf="box.value.length>200 || (inventoryForm.get('description').invalid && inventoryForm.get('description').touched)" class="error">
-                            <small *ngIf="box.value.length>200">The character count has reached max value of {{box.value.length}}</small>
-                            <small *ngIf="inventoryForm.get('description').errors.pattern">Description not valid</small>
-                            <small *ngIf="inventoryForm.get('description').errors.required">Description is required</small>
-                        </div>
-                    </div>
-                    <div class="form-group">
-
-                        <label for='price'>Price</label>
-                        <input class="form-control" #price type="number" value="{{item.price}}" formControlName="price" placeholder="Price" min=1 max=99999999 required>
-
-                        <!-- price validation -->
-                        <div *ngIf="price.value > 99999999 || (inventoryForm.get('price').invalid && inventoryForm.get('price').touched)" class="error">
-                            <small *ngIf="price.value > 99999999">Price too high</small>
-                            <small *ngIf="inventoryForm.get('price').errors.required">Price is required</small>
-                        </div>
-                    </div>
-                    <div class="custom-file">
-
-                        <input id="img" class="custom-file-input" type="file" accept=".jpg, .jpeg, .png" #file (change)="getFileValidated(file.files, $event)" formControlName="image" required>
-
-                        <!-- file validation -->
-                        <div *ngIf="fileValidationErr!=true" class="error">
-                            <small>{{ fileValidationErr }}</small>
-                        </div>
-                    </div>
-                </div>
+    <!-- <div class="container"> -->
+    <form [formGroup]="inventoryForm" (submit)="save()">
+        <div class="row">
+            <!-- previews the image before uploading or displays current image -->
+            <div class="col col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <img [src]="imgURL" height="200" *ngIf="isImageChanged">
+                <img src="http://localhost:5000/get-image/{{item.image}}" height="200" *ngIf="!isImageChanged">
             </div>
-            <!-- button disables if form is not valid -->
-            <button type="submit" [disabled]="inventoryForm.invalid || fileValidationErr!=true" class="float-right btn btn-primary">Save Edits</button>
-        </form>
-    </div>
+            <div class="col col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+
+                    <label for='name'>Name</label>
+                    <input for='name' class="form-control" value="{{item.name}}" pattern="[a-zA-Z ]*" maxlength="50" required formControlName="name">
+
+                    <!-- name validation -->
+                    <div *ngIf="inventoryForm.get('name').invalid && inventoryForm.get('name').touched" class="error">
+                        <small *ngIf="inventoryForm.get('name').errors.pattern">Name not valid</small>
+                        <small *ngIf="inventoryForm.get('name').errors.required">Name is required</small>
+                    </div>
+                </div>
+                <div class="form-group description">
+
+                    <label for='desc'>Description</label>
+                    <textarea class="form-control" #box (keyup)="0" value="{{item.description}}" formControlName="description" placeholder="Description" maxlength="200" required></textarea>
+                    <small>The character count is {{box.value.length}}</small>
+
+                    <!-- description validation -->
+                    <small *ngIf="box.value.length<200"> The character count is {{box.value.length}}</small>
+                    <div *ngIf="box.value.length>200 || (inventoryForm.get('description').invalid && inventoryForm.get('description').touched)" class="error">
+                        <small *ngIf="box.value.length>200">The character count has reached max value of {{box.value.length}}</small>
+                        <small *ngIf="inventoryForm.get('description').errors.pattern">Description not valid</small>
+                        <small *ngIf="inventoryForm.get('description').errors.required">Description is required</small>
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <label for='price'>Price</label>
+                    <input class="form-control" #price type="number" value="{{item.price}}" formControlName="price" placeholder="Price" min=1 max=99999999 required>
+
+                    <!-- price validation -->
+                    <div *ngIf="price.value > 99999999 || (inventoryForm.get('price').invalid && inventoryForm.get('price').touched)" class="error">
+                        <small *ngIf="price.value > 99999999">Price too high</small>
+                        <small *ngIf="inventoryForm.get('price').errors.required">Price is required</small>
+                    </div>
+                </div>
+                <div class="custom-file">
+
+                    <input id="img" class="custom-file-input" type="file" accept=".jpg, .jpeg, .png" #file (change)="getFileValidated(file.files, $event)" formControlName="image" required>
+
+                    <!-- file validation -->
+                    <div *ngIf="fileValidationErr!=true" class="error">
+                        <small>{{ fileValidationErr }}</small>
+                    </div>
+                </div>
+                <!-- button disables if form is not valid -->
+                <button type="submit" [disabled]="inventoryForm.invalid || fileValidationErr!=true" class="float-right btn btn-primary">Save Edits</button>
+                <button (click)="delete(item)" class="float-right btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </form>
 </div>

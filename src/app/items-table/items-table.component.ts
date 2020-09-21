@@ -21,8 +21,11 @@ export class ItemsTableComponent implements OnInit {
   // fetch all items from service class
 	getItems(): void {
     this.cartService.getItems().subscribe((items) => {
-      this.items = items
-      console.log("items");
+      if(items && items.length > 0){
+        this.items = items;
+      } else {
+        this.items = [];
+      }
     });
   }
 

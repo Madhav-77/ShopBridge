@@ -21,8 +21,12 @@ var ItemsTableComponent = /** @class */ (function () {
     ItemsTableComponent.prototype.getItems = function () {
         var _this = this;
         this.cartService.getItems().subscribe(function (items) {
-            _this.items = items;
-            console.log("items");
+            if (items && items.length > 0) {
+                _this.items = items;
+            }
+            else {
+                _this.items = [];
+            }
         });
     };
     // passing item to service class for delete request

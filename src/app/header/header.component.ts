@@ -16,10 +16,11 @@ export class HeaderComponent implements OnInit {
     this.title = this.appComponent.title;
   }
 
-  activeTab = 'add-items';
+  // default route
+  activeTab = "/";
 
-  // function made to toggle navbar active 
-  // class between tabs in case of multiple tabs 
+  // function made to toggle navbar active
+  // class between tabs in case of multiple tabs
   toggleTab(activeTab){
     this.activeTab = activeTab;
   }

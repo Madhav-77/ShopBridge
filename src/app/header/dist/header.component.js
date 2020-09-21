@@ -11,11 +11,15 @@ var core_1 = require("@angular/core");
 var HeaderComponent = /** @class */ (function () {
     function HeaderComponent(appComponent) {
         this.appComponent = appComponent;
-        this.activeTab = 'add-items';
+        // default route
+        this.activeTab = "/";
     }
     HeaderComponent.prototype.ngOnInit = function () {
+        // getting title from root component
         this.title = this.appComponent.title;
     };
+    // function made to toggle navbar active
+    // class between tabs in case of multiple tabs
     HeaderComponent.prototype.toggleTab = function (activeTab) {
         this.activeTab = activeTab;
     };

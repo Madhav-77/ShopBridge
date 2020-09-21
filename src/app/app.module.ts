@@ -13,6 +13,8 @@ import { UpdateItemDetailsComponent } from './update-item-details/update-item-de
 import { ViewItemComponent } from './view-item/view-item.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { FooterComponent } from './footer/footer.component';
     ViewItemComponent,
     HeaderComponent,
     FooterComponent,
+    PageNotFoundComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

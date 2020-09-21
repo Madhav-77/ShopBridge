@@ -13,10 +13,16 @@ var add_items_component_1 = require("./add-items/add-items.component");
 var items_table_component_1 = require("./items-table/items-table.component");
 var update_item_details_component_1 = require("./update-item-details/update-item-details.component");
 var view_item_component_1 = require("./view-item/view-item.component");
+var page_not_found_component_1 = require("./page-not-found/page-not-found.component");
 var common_1 = require("@angular/common");
+var home_component_1 = require("./home/home.component");
 var routes = [
     {
-        path: 'add',
+        path: '',
+        component: home_component_1.HomeComponent
+    },
+    {
+        path: 'inventory',
         component: add_items_component_1.AddItemsComponent
     },
     {
@@ -30,6 +36,10 @@ var routes = [
     {
         path: 'item/:id',
         component: view_item_component_1.ViewItemComponent
+    },
+    {
+        path: '**',
+        component: page_not_found_component_1.PageNotFoundComponent
     },
 ];
 var AppRoutingModule = /** @class */ (function () {

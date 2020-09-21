@@ -10,8 +10,9 @@ exports.UpdateItemDetailsComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var UpdateItemDetailsComponent = /** @class */ (function () {
-    function UpdateItemDetailsComponent(route, cartService, fileValidate) {
+    function UpdateItemDetailsComponent(route, router, cartService, fileValidate) {
         this.route = route;
+        this.router = router;
         this.cartService = cartService;
         this.fileValidate = fileValidate;
         this.isImageChanged = false;
@@ -31,14 +32,39 @@ var UpdateItemDetailsComponent = /** @class */ (function () {
         var _this = this;
         var item_id = +this.route.snapshot.paramMap.get('id');
         this.cartService.getItem(item_id).subscribe(function (item) {
-            _this.inventoryForm = new forms_1.FormGroup({
-                name: new forms_1.FormControl(item.name, [forms_1.Validators.required, forms_1.Validators.pattern('[a-zA-Z ]*'), forms_1.Validators.maxLength(50)]),
-                description: new forms_1.FormControl(item.description, [forms_1.Validators.required, forms_1.Validators.pattern('[a-zA-Z0-9 ]{1,200}$'), forms_1.Validators.maxLength(200)]),
-                price: new forms_1.FormControl(item.price, [forms_1.Validators.required, forms_1.Validators.max(99999999)]),
-                image: new forms_1.FormControl('', [forms_1.Validators.required])
-            });
-            _this.item = item;
+            // console.log(item.length);
+            if (item) {
+                _this.inventoryForm = new forms_1.FormGroup({
+                    name: new forms_1.FormControl(item.name, [
+                        forms_1.Validators.required,
+                        forms_1.Validators.pattern('[a-zA-Z ]*'),
+                        forms_1.Validators.maxLength(50),
+                    ]),
+                    description: new forms_1.FormControl(item.description, [
+                        forms_1.Validators.required,
+                        forms_1.Validators.pattern('[a-zA-Z0-9 ]{1,200}$'),
+                        forms_1.Validators.maxLength(200),
+                    ]),
+                    price: new forms_1.FormControl(item.price, [
+                        forms_1.Validators.required,
+                        forms_1.Validators.max(99999999),
+                    ]),
+                    image: new forms_1.FormControl('', [forms_1.Validators.required])
+                });
+                _this.item = item;
+            }
+            else {
+                _this.item = null;
+            }
         });
+    };
+    UpdateItemDetailsComponent.prototype["delete"] = function (item) {
+        var _this = this;
+        if (confirm("Are you sure to delete this item?")) {
+            this.cartService.deleteItem(item).subscribe(function (success) {
+                _this.router.navigate(['/inventory']);
+            });
+        }
     };
     // validates uploaded file
     UpdateItemDetailsComponent.prototype.getFileValidated = function (files, $event) {
@@ -50,10 +76,10 @@ var UpdateItemDetailsComponent = /** @class */ (function () {
             this.fileValidationErr = true;
         }
         else if (getFileStatus == 1) {
-            this.fileValidationErr = "File size too large!";
+            this.fileValidationErr = 'File size too large!';
         }
         else {
-            this.fileValidationErr = "Invalid file type";
+            this.fileValidationErr = 'Invalid file type';
         }
     };
     // displays a file before uploading
@@ -84,7 +110,9 @@ var UpdateItemDetailsComponent = /** @class */ (function () {
         if (this.image == null) {
             this.image = this.item.image;
         }
-        this.cartService.updateItem(this.item, this.image, this.item.id).subscribe(function (success) { });
+        this.cartService
+            .updateItem(this.item, this.image, this.item.id)
+            .subscribe(function (success) { });
     };
     __decorate([
         core_1.Input()

@@ -1,23 +1,29 @@
 <div *ngIf="item">
+    <!-- <div class="v-center"> -->
     <h2 class="page-title">{{item.name}}'s Details</h2>
-    <div class="container v-center">
-        <div class="row">
-            <div class="col-sm-12 col-md-6">
-                <img src="http://localhost:5000/get-image/{{item.image}}" alt="img" srcset="">
-            </div>
-            <div class="col-md-6">
-                <h6>
-                    <b>Name:</b> {{item.name}}
-                </h6>
-                <h6 class="description">
-                    <b>Description:</b> {{item.description}}
-                </h6>
-                <h6>
-                    <b>Price:</b> {{item.price | currency:'INR'}}
-                </h6>
-            </div>
+    <div class="row">
+        <div class="col col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <img src="http://localhost:5000/get-image/{{item.image}}" alt="img" srcset="">
         </div>
-        <!-- button to redirect to the update component -->
-        <button type="submit" (click)="navigateToEdit(item.id)" class="float-right btn btn-primary">Edit Details</button>
+        <div class="col col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <table>
+                <tbody>
+                    <tr>
+                        <td><b>Name:</b></td>
+                        <td>{{item.name}}</td>
+                    </tr>
+                    <tr>
+                        <td valign="top"> <b>Description:</b></td>
+                        <td class="description">{{item.description}}</td>
+                    </tr>
+                    <tr>
+                        <td> <b>Price:</b></td>
+                        <td>{{item.price | currency:'INR'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- button to redirect to the update component -->
+            <button type="submit" (click)="navigateToEdit(item.id)" class="float-right btn btn-primary">Edit Details</button>
+        </div>
+        <!-- </div> -->
     </div>
-</div>

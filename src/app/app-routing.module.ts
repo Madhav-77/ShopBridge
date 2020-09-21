@@ -4,11 +4,17 @@ import { AddItemsComponent } from './add-items/add-items.component';
 import { ItemsTableComponent } from './items-table/items-table.component';
 import { UpdateItemDetailsComponent } from './update-item-details/update-item-details.component';
 import { ViewItemComponent } from './view-item/view-item.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CommonModule } from '@angular/common';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {
-    path: 'add',
+    path: '',
+    component: HomeComponent
+  },
+  {
+    path: 'inventory',
     component: AddItemsComponent
   },
   {
@@ -22,6 +28,10 @@ const routes: Routes = [
   {
     path: 'item/:id',
     component: ViewItemComponent
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent
   },
 ];
 

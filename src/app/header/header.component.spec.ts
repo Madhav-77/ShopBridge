@@ -19,7 +19,12 @@ describe('HeaderComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  /* it(`should have as title Welcome to ShopBridge`, () => {
+    expect(component.title).toBe("Welcome");
   });
+
+  it(`should have an active tab as add-item`, () => {
+    expect(component.activeTab).toBe("add-items");
+  }); */
+
 });

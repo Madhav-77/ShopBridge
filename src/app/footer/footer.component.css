@@ -3,6 +3,7 @@
 }
 
 .footer {
+    z-index: 1;
     background-color: #909090;
     margin-top: 100px;
 }
