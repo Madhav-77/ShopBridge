@@ -1,29 +1,18 @@
-<h3 class="title">Items Table</h3>
-<div class="container">
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Title</th>
-                <th scope="col">Author</th>
-                <th scope="col">Action</th>
-                <th scope="col">View</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let list of listArr">
-                <td scope="row">{{ list.id }}</td>
-                <td>{{ list.title }}</td>
-                <td>{{ list.author }}</td>
-                <td>
-                    <i (click)="removeItems(list.id)" class="fa fa-trash" aria-hidden="true"></i>
-                </td>
-                <td>
-                    <a routerLink="/update/{{ list.id }}">
-                        <i class="fa fa-eye" aria-hidden="true"></i>
-                    </a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<div class="row">
+    <div class="col col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngFor="let item of items">
+        <div class="card">
+            <img class="card-img-top" *ngIf="item.image!=''" src="http://localhost:5000/get-image/{{item.image}}" alt="item_img">
+            <!-- in case of empty string returned from db -->
+            <img class="card-img-top" *ngIf="item.image==''" alt="No Item Image Uploaded">
+            <div class="card-body">
+                <p class="float-right">{{item.price | currency:'INR'}}</p>
+                <h5 class="card-title">{{item.name}}</h5>
+                <p class="card-text">{{item.description}}</p>
+            </div>
+            <div class="card-footer">
+                <i (click)="delete(item)" class="float-left fa fa-close"></i>
+                <a routerLink="/item/{{item.id}}" class="card-link float-right">View More</a>
+            </div>
+        </div>
+    </div>
 </div>

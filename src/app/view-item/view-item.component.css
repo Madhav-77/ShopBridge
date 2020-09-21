@@ -1,0 +1,44 @@
+img {
+    width: auto;
+    height: 200px;
+    aspect-ratio: inherit;
+}
+
+.v-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+h6 {
+    padding: 5px;
+}
+
+.page-title {
+    position: relative;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 70px;
+}
+
+.description {
+    overflow-wrap: break-word;
+}
+
+.btn-primary {
+    background-color: #052F5F;
+    border-color: #052F5F;
+}
+
+.btn-primary:hover {
+    background-color: #005377;
+    border-color: #005377;
+}
+
+.btn-primary:disabled {
+    background-color: #06A77D;
+    border-color: #06A77D;
+}

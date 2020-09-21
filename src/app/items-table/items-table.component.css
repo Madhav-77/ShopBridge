@@ -1,3 +1,52 @@
-.title {
-    text-align: center;
+.card {
+    height: 100%;
+    display: flex;
+}
+
+.card-block {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.card-body {
+    height: 120px;
+}
+
+.card-text {
+    text-overflow: ellipsis;
+    /* Required for text-overflow to do anything */
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.card-title {
+    max-width: 120px;
+    height: 50px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.card-footer>a {
+    color: #005377;
+}
+
+.card-footer {
+    background-color: #e5e5e5;
+}
+
+.card-img-top {
+    height: 200px;
+}
+
+.col {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.fa-close {
+    color: #B80C09;
+    cursor: pointer;
+    margin-top: 5px;
 }

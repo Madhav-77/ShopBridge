@@ -1,69 +1,75 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { FileValidation } from '../file-validation';
+import { Inventory } from '../inventory';
 import { CartService } from '../cart.service';
-import { ActivatedRoute } from '@angular/router';
+import { ItemsTableComponent } from '../items-table/items-table.component';
 
 @Component({
   selector: 'app-add-items',
   templateUrl: './add-items.component.html',
-  styleUrls: ['./add-items.component.css']
+  styleUrls: ['./add-items.component.css'],
 })
-export class AddItemsComponent implements OnInit {
 
-  addItemForm = new FormGroup(({
-    title: new FormControl(),
-    author: new FormControl()
-  }));
+export class AddItemsComponent implements OnInit {
+  ngOnInit(): void {}
+
+  @Input() item: Inventory = { name: '', description: '', price: '' };
+
+  fileValidationErr:any;
+
+  public image: any = null;
+  public isProcessing: boolean;
+
+  @ViewChild(ItemsTableComponent, { static: false }) itemsTable: ItemsTableComponent;
+
+  addItemForm = new FormGroup({
+    id: new FormControl(),
+    name: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.maxLength(50)]),
+    description: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z0-9 ]{1,200}$'), Validators.maxLength(200)]), // /^[a-zA-Z0-9 ]{1,200}$/
+    price: new FormControl('', [Validators.required, Validators.max(99999999)]),
+    image: new FormControl('', [Validators.required]),
+  });
 
   constructor(
-    private cart:CartService,
-    private route:ActivatedRoute
-  ) { }
+    private cart: CartService,
+    private fileValidate: FileValidation,
+    private modalService: NgbModal
+  ) {}
 
-  idFromURL = '';
-  alertText = '';
-  ngOnInit(): void {
-    this.idFromURL = this.route.snapshot.params.id;
-    if(this.idFromURL != undefined){
-      this.cart.getItemFromId(this.idFromURL).subscribe((res)=>{
-        // console.log(res);
-        this.addItemForm = new FormGroup(({
-          title: new FormControl(res['title']),
-          author: new FormControl(res['author'])
-        }));
-      });
-    } else {
-      console.log("Undefined");
-      // this.idFromURL = '';
+  openVerticallyCentered(content) {
+    this.modalService.open(content, { centered: true });
+  }
+
+  getImageFromView($event: Event) {
+    let fileObj = $event.target['files'][0];
+    let getFileStatus = this.fileValidate.getFileData(fileObj);
+    if (getFileStatus == 0) { // 0 for success
+      this.image = $event.target['files'];
+      this.fileValidationErr = true;
+    } else if (getFileStatus == 1) { //1 for size validation
+      this.fileValidationErr = "File size too large!";
+    } else { // 2 for type validation
+      this.fileValidationErr = "Invalid file type";
     }
   }
 
-  alert = false;
-
-  alertDismiss(){
-    this.alert = false;
-  }
-
-  data;
-  addItemsData(){
-    this.data = this.addItemForm.value;
-    this.cart.sendItemsData(this.data).subscribe((res)=>{
-      console.table(res);
-      this.alert = true;
-      this.alertText = "Added";
+  save(): void {
+    this.item = this.addItemForm.value;
+    console.log(this.item);
+    this.isProcessing = true;
+    this.cart.addItem(this.item, this.image).subscribe((res) => {
+      this.isProcessing = false;
+      this.itemsTable.getItems();
       this.addItemForm.reset({});
-    });
+      this.closeModal();
+      // console.log(res);
+    }); //this.goBack()
   }
 
-  updateItems(){
-    this.data = this.addItemForm.value;
-    // console.log(this.data);
-    this.cart.updateItems(this.idFromURL, this.data).subscribe((res)=>{
-      console.log(res);
-      this.alert = true;
-      this.alertText = "Updated";
-      // this.addItemForm.reset({});
-    });
+  closeModal() {
+    this.modalService.dismissAll();
   }
-
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../cart.service';
+import { ActivatedRoute } from '@angular/router';
+import { Inventory } from '../inventory';
 
 @Component({
   selector: 'app-items-table',
@@ -8,27 +10,26 @@ import { CartService } from '../cart.service';
 })
 export class ItemsTableComponent implements OnInit {
 
-  constructor(private cart: CartService) { }
+  items: Inventory[] = [];
 
-  listArr:any;
-  ngOnInit(): void {
-    this.cart.getItems().subscribe((data)=>{
-      console.table(data);
-      this.listArr = data;
+	constructor(private route: ActivatedRoute, private cartService: CartService) { }
+
+	ngOnInit() {
+		this.getItems();
+	}
+
+  // fetch all items from service class
+	getItems(): void {
+    this.cartService.getItems().subscribe((items) => {
+      this.items = items
+      console.log("items");
     });
   }
 
-  removeItems(itemId){
-
-    if(confirm("Are you sure to delete?")) {
-      this.cart.removeItems(itemId).subscribe((res)=>{
-        for (let i = 0; i < this.listArr.length; i++) {
-          if(this.listArr[i]['id']==itemId){
-            this.listArr.splice(i, 1);
-          }
-        }
-      });
+  // passing item to service class for delete request
+	delete(item: Inventory): void {
+    if(confirm("Are you sure to delete this item?")) {
+      this.cartService.deleteItem(item).subscribe(success=> {this.getItems();});
     }
-  }
-
+	}
 }
