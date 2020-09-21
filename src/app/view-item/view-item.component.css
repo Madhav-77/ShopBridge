@@ -1,6 +1,6 @@
 img {
-    width: auto;
-    height: 200px;
+    width: inherit;
+    height: auto;
     aspect-ratio: inherit;
 }
 

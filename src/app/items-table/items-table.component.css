@@ -3,6 +3,10 @@
     display: flex;
 }
 
+.row {
+    margin-bottom: 70px;
+}
+
 .card-block {
     display: flex;
     justify-content: space-between;
