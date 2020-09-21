@@ -4,6 +4,10 @@ img {
     aspect-ratio: inherit;
 }
 
+div.margin {
+    margin-bottom: 70px;
+}
+
 button {
     right: 0px;
     bottom: 0px;

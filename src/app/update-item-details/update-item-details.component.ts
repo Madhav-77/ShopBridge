@@ -38,6 +38,7 @@ export class UpdateItemDetailsComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    console.log("in update");
     this.getItem();
   }
 
@@ -45,8 +46,9 @@ export class UpdateItemDetailsComponent implements OnInit {
   getItem(): void {
     const item_id = +this.route.snapshot.paramMap.get('id');
     this.cartService.getItem(item_id).subscribe((item) => {
-      // console.log(item.length);
+      console.log(item);
       if (item) {
+        console.log("in if");
         this.inventoryForm = new FormGroup({
           name: new FormControl(item.name, [
             Validators.required,
@@ -65,7 +67,9 @@ export class UpdateItemDetailsComponent implements OnInit {
           image: new FormControl('', [Validators.required]),
         });
         this.item = item;
+        console.log(this.item);
       } else {
+        console.log(false);
         this.item = null;
       }
     });

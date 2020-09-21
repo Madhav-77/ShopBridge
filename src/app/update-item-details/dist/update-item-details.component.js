@@ -25,6 +25,7 @@ var UpdateItemDetailsComponent = /** @class */ (function () {
         });
     }
     UpdateItemDetailsComponent.prototype.ngOnInit = function () {
+        console.log("in update");
         this.getItem();
     };
     // gets the requested item from api
@@ -32,8 +33,9 @@ var UpdateItemDetailsComponent = /** @class */ (function () {
         var _this = this;
         var item_id = +this.route.snapshot.paramMap.get('id');
         this.cartService.getItem(item_id).subscribe(function (item) {
-            // console.log(item.length);
+            console.log(item);
             if (item) {
+                console.log("in if");
                 _this.inventoryForm = new forms_1.FormGroup({
                     name: new forms_1.FormControl(item.name, [
                         forms_1.Validators.required,
@@ -52,8 +54,10 @@ var UpdateItemDetailsComponent = /** @class */ (function () {
                     image: new forms_1.FormControl('', [forms_1.Validators.required])
                 });
                 _this.item = item;
+                console.log(_this.item);
             }
             else {
+                console.log(false);
                 _this.item = null;
             }
         });

@@ -1,4 +1,4 @@
-<div *ngIf="item">
+<div class="margin" *ngIf="item">
     <h2 class="page-title">{{item.name}}'s Details</h2>
     <!-- <div class="container"> -->
     <form [formGroup]="inventoryForm" (submit)="save()">
@@ -15,9 +15,9 @@
                     <input for='name' class="form-control" value="{{item.name}}" pattern="[a-zA-Z ]*" maxlength="50" required formControlName="name">
 
                     <!-- name validation -->
-                    <div *ngIf="inventoryForm.get('name').invalid && inventoryForm.get('name').touched" class="error">
-                        <small *ngIf="inventoryForm.get('name').errors.pattern">Name not valid</small>
-                        <small *ngIf="inventoryForm.get('name').errors.required">Name is required</small>
+                    <div *ngIf="inventoryForm.get( 'name').invalid && inventoryForm.get( 'name').touched" class="error">
+                        <small *ngIf="inventoryForm.get( 'name').errors.pattern">Name not valid</small>
+                        <small *ngIf="inventoryForm.get( 'name').errors.required">Name is required</small>
                     </div>
                 </div>
                 <div class="form-group description">
