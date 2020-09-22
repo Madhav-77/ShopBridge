@@ -13,8 +13,8 @@ const httpOptions = {
 })
 
 export class CartService {
-  // url = "http://localhost:3000/posts";
-  url = 'http://localhost:5000';
+  // url = "http://127.0.0.1:5000";
+  url = 'https://services-flask-api.herokuapp.com';
   constructor(private http: HttpClient) {}
 
   // gets all items from the server
@@ -30,12 +30,15 @@ export class CartService {
 
   // adds item to the server
   addItem(item: Inventory, image: any) {
+    console.log(image[0]);
+    console.log(item);
     const { name, description, price } = item;
     const formData: FormData = new FormData();
     formData.append('description', description);
     formData.append('name', name);
     formData.append('price', price);
     formData.append('image', image[0], image['name']);
+    console.table(formData.getAll);
     return this.http.post<Inventory>(this.url + '/add', formData);
   }
 

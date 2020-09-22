@@ -6,7 +6,7 @@
             <!-- previews the image before uploading or displays current image -->
             <div class="col col-sm-12 col-md-6 col-lg-6 col-xl-6">
                 <img [src]="imgURL" height="200" *ngIf="isImageChanged">
-                <img src="http://localhost:5000/get-image/{{item.image}}" height="200" *ngIf="!isImageChanged">
+                <img src="https://services-flask-api.herokuapp.com/get-image/{{item.image}}" height="200" *ngIf="!isImageChanged">
             </div>
             <div class="col col-sm-12 col-md-6 col-lg-6 col-xl-6">
                 <div class="form-group">

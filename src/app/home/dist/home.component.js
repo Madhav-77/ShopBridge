@@ -15,7 +15,12 @@ var HomeComponent = /** @class */ (function () {
     HomeComponent.prototype.ngOnInit = function () {
     };
     HomeComponent.prototype.navigateToHome = function () {
-        this.router.navigate(['/inventory']);
+        if (this.router.navigate(['/inventory'])) {
+            return true;
+        }
+        else {
+            return false;
+        }
     };
     HomeComponent = __decorate([
         core_1.Component({

@@ -1,7 +1,9 @@
 <div class="row">
     <div class="col col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngFor="let item of items">
         <div class="card">
-            <img class="card-img-top" *ngIf="item.image!=''" src="http://localhost:5000/get-image/{{item.image}}" alt="item_img">
+            <!-- prod host: https://services-flask-api.herokuapp.com/  -->
+            <!-- local host: http://localhost:5000/ -->
+            <img class="card-img-top" *ngIf="item.image!=''" src="https://services-flask-api.herokuapp.com/get-image/{{item.image}}" alt="item_img">
             <!-- in case of empty string returned from db -->
             <img class="card-img-top" *ngIf="item.image==''" alt="No Item Image Uploaded">
             <div class="card-body">

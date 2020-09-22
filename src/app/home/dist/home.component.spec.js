@@ -37,15 +37,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var testing_1 = require("@angular/core/testing");
-var add_items_component_1 = require("./add-items.component");
-describe('AddItemsComponent', function () {
+var testing_2 = require("@angular/router/testing");
+var home_component_1 = require("./home.component");
+describe('HomeComponent', function () {
     var component;
+    // let router: Router;
     var fixture;
     beforeEach(function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, testing_1.TestBed.configureTestingModule({
-                        declarations: [add_items_component_1.AddItemsComponent]
+                        declarations: [home_component_1.HomeComponent],
+                        // imports: [ Router ],
+                        providers: [testing_2.RouterTestingModule]
+                        // providers: [ Router ]
+                        // imports: [ Router ]
                     })
                         .compileComponents()];
                 case 1:
@@ -55,14 +61,11 @@ describe('AddItemsComponent', function () {
         });
     }); });
     beforeEach(function () {
-        fixture = testing_1.TestBed.createComponent(add_items_component_1.AddItemsComponent);
+        fixture = testing_1.TestBed.createComponent(home_component_1.HomeComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
-    it('should create', function () {
-        expect(component).toBeTruthy();
-    });
-    it('should not create', function () {
-        expect(component).toBeFalsy();
+    it('should create home comp', function () {
+        expect(component).toBeDefined();
     });
 });

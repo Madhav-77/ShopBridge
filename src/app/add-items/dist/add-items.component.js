@@ -16,6 +16,7 @@ var AddItemsComponent = /** @class */ (function () {
         this.fileValidate = fileValidate;
         this.modalService = modalService;
         this.item = { name: '', description: '', price: '' };
+        this.fileValidationErr = null;
         this.image = null;
         this.addItemForm = new forms_1.FormGroup({
             id: new forms_1.FormControl(),
@@ -42,6 +43,7 @@ var AddItemsComponent = /** @class */ (function () {
         else { // 2 for type validation
             this.fileValidationErr = "Invalid file type";
         }
+        return this.fileValidationErr;
     };
     AddItemsComponent.prototype.save = function () {
         var _this = this;

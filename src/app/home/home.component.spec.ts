@@ -1,16 +1,23 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { HomeComponent } from './home.component';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
+  // let router: Router;
   let fixture: ComponentFixture<HomeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HomeComponent ]
+      declarations: [ HomeComponent ],
+      // imports: [ Router ],
+      providers: [ RouterTestingModule ]
+      // providers: [ Router ]
+      // imports: [ Router ]
     })
     .compileComponents();
+    // component = new HomeComponent(router)
   });
 
   beforeEach(() => {
@@ -19,7 +26,7 @@ describe('HomeComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create home comp', () => {
+    expect(component).toBeDefined();
   });
 });

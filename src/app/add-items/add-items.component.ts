@@ -18,7 +18,7 @@ export class AddItemsComponent implements OnInit {
 
   @Input() item: Inventory = { name: '', description: '', price: '' };
 
-  fileValidationErr:any;
+  fileValidationErr:any = null;
 
   public image: any = null;
   public isProcessing: boolean;
@@ -54,6 +54,7 @@ export class AddItemsComponent implements OnInit {
     } else { // 2 for type validation
       this.fileValidationErr = "Invalid file type";
     }
+    return this.fileValidationErr;
   }
 
   save(): void {

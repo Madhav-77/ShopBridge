@@ -14,7 +14,11 @@ export class HomeComponent implements OnInit {
   }
 
   navigateToHome(){
-    this.router.navigate(['/inventory']);
+    if(this.router.navigate(['/inventory'])){
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }

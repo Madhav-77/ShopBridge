@@ -15,8 +15,8 @@ var httpOptions = {
 var CartService = /** @class */ (function () {
     function CartService(http) {
         this.http = http;
-        // url = "http://localhost:3000/posts";
-        this.url = 'http://localhost:5000';
+        // url = "http://127.0.0.1:5000";
+        this.url = 'https://services-flask-api.herokuapp.com';
     }
     // gets all items from the server
     CartService.prototype.getItems = function () {
@@ -29,12 +29,15 @@ var CartService = /** @class */ (function () {
     };
     // adds item to the server
     CartService.prototype.addItem = function (item, image) {
+        console.log(image[0]);
+        console.log(item);
         var name = item.name, description = item.description, price = item.price;
         var formData = new FormData();
         formData.append('description', description);
         formData.append('name', name);
         formData.append('price', price);
         formData.append('image', image[0], image['name']);
+        console.table(formData.getAll);
         return this.http.post(this.url + '/add', formData);
     };
     // updates item on the server
