@@ -16,6 +16,7 @@ var ViewItemComponent = /** @class */ (function () {
         this.navigateViaRouter = navigateViaRouter;
     }
     ViewItemComponent.prototype.ngOnInit = function () {
+        this.base_url = this.cartService.url;
         this.getItem();
     };
     // takes id from url and request

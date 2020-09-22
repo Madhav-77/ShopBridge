@@ -15,6 +15,7 @@ var ItemsTableComponent = /** @class */ (function () {
         this.items = [];
     }
     ItemsTableComponent.prototype.ngOnInit = function () {
+        this.base_url = this.cartService.url;
         this.getItems();
     };
     // fetch all items from service class

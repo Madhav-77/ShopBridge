@@ -21,6 +21,7 @@ export class UpdateItemDetailsComponent implements OnInit {
   public isImageChanged: boolean = false;
   public imagePath;
   public fileValidationErr: any;
+  public base_url: String;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,7 +39,7 @@ export class UpdateItemDetailsComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    console.log("in update");
+    this.base_url = this.cartService.url;
     this.getItem();
   }
 

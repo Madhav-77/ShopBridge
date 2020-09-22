@@ -13,10 +13,10 @@ var httpOptions = {
     headers: new http_1.HttpHeaders({ 'Content-Type': 'application/json' })
 };
 var CartService = /** @class */ (function () {
+    // url = 'https://services-flask-api.herokuapp.com';
     function CartService(http) {
         this.http = http;
-        // url = "http://127.0.0.1:5000";
-        this.url = 'https://services-flask-api.herokuapp.com';
+        this.url = "http://127.0.0.1:5000";
     }
     // gets all items from the server
     CartService.prototype.getItems = function () {

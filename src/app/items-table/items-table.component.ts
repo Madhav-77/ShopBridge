@@ -11,10 +11,12 @@ import { Inventory } from '../inventory';
 export class ItemsTableComponent implements OnInit {
 
   items: Inventory[] = [];
+  base_url: String;
 
 	constructor(private route: ActivatedRoute, private cartService: CartService) { }
 
 	ngOnInit() {
+    this.base_url = this.cartService.url;
 		this.getItems();
 	}
 

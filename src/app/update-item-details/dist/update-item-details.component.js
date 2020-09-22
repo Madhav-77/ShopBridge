@@ -25,7 +25,7 @@ var UpdateItemDetailsComponent = /** @class */ (function () {
         });
     }
     UpdateItemDetailsComponent.prototype.ngOnInit = function () {
-        console.log("in update");
+        this.base_url = this.cartService.url;
         this.getItem();
     };
     // gets the requested item from api

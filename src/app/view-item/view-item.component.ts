@@ -12,6 +12,7 @@ import { Inventory } from '../inventory';
 export class ViewItemComponent implements OnInit {
 
   item: Inventory;
+  base_url: String;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,6 +22,7 @@ export class ViewItemComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.base_url = this.cartService.url;
     this.getItem();
   }
 
