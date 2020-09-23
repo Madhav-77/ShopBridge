@@ -2,6 +2,38 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.0.
 
+ShopBridge is a Web Application that is built on Angular, Flask, and MySql for storage. It can be used to add items to inventory, view the list of available items, delete the existing item, and update the existing item.
+
+## Installation
+
+Install Node.js on your system [Node.Js](https://nodejs.org/en/download/) (Make sure to download the version best suited for your system).
+
+Install the package manager npm.
+
+```bash
+npm install npm@latest -g
+```
+
+Install Angular
+
+```bash
+npm install -g @angular/cli
+```
+Navigate to the workspace folder, here it is ShopBridge.
+
+Run the following command:
+
+```bash
+ng serve --open
+```
+Before getting access to application, make sure to have the server-side
+[Flask code](https://github.com/Madhav-77/Flask-Service) setup.
+
+Enter this [URL](http://localhost:4200/) in browser to access the app
+
+## Project Link
+ShopBridge [View Demo](https://shopbridge.netlify.app/)
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
