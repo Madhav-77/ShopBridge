@@ -11,10 +11,11 @@ var forms_1 = require("@angular/forms");
 var core_1 = require("@angular/core");
 var items_table_component_1 = require("../items-table/items-table.component");
 var AddItemsComponent = /** @class */ (function () {
-    function AddItemsComponent(cart, fileValidate, modalService) {
+    function AddItemsComponent(cart, fileValidate, modalService, spinner) {
         this.cart = cart;
         this.fileValidate = fileValidate;
         this.modalService = modalService;
+        this.spinner = spinner;
         this.item = { name: '', description: '', price: '' };
         this.fileValidationErr = null;
         this.image = null;
@@ -47,6 +48,7 @@ var AddItemsComponent = /** @class */ (function () {
     };
     AddItemsComponent.prototype.save = function () {
         var _this = this;
+        this.spinner.show();
         this.item = this.addItemForm.value;
         console.log(this.item);
         this.isProcessing = true;
@@ -54,7 +56,9 @@ var AddItemsComponent = /** @class */ (function () {
             _this.isProcessing = false;
             _this.itemsTable.getItems();
             _this.addItemForm.reset({});
+            _this.spinner.hide();
             _this.closeModal();
+            _this.testFlag = true;
             // console.log(res);
         }); //this.goBack()
     };

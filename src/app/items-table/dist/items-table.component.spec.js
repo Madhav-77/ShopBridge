@@ -46,6 +46,8 @@ var operators_1 = require("rxjs/operators");
 describe('ItemsTableComponent', function () {
     var component;
     var fixture;
+    var cartService;
+    var mockTests;
     beforeEach(function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -72,6 +74,7 @@ describe('ItemsTableComponent', function () {
         fixture = testing_1.TestBed.createComponent(items_table_component_1.ItemsTableComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
+        // cartService = TestBed.get(CartService);
     });
     it('should call getItems and return []', testing_1.fakeAsync(function () {
         var fixture = testing_1.TestBed.createComponent(items_table_component_1.ItemsTableComponent);
@@ -84,6 +87,28 @@ describe('ItemsTableComponent', function () {
         testing_1.tick(300);
         expect(component.items).toEqual([]);
     }));
+    /*
+      afterEach(() => {
+        mockTests.verify();
+      })
+    
+      it("should get items from the api via GET method", () => {
+        const dummyItems: Inventory[] = [
+          {id: 1, name: "Madhav", description: "Unit test run", price: "123"},
+          {id: 2, name: "New test", description: "Test entry", price: "5642"}
+        ];
+    
+        cartService.getItems().subscribe(items => {
+          expect(items.length).toBe(2);
+          expect(items).toEqual(dummyItems);
+        });
+    
+        const req = mockTests.expectOne(`${cartService.url}/items`);
+    
+        expect(req.request.method).toBe('GET');
+    
+        req.flush(dummyItems);
+      }); */
     /* it('should create', () => {
       expect(component).toBeTruthy();
     }); */

@@ -10,11 +10,12 @@ exports.UpdateItemDetailsComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var UpdateItemDetailsComponent = /** @class */ (function () {
-    function UpdateItemDetailsComponent(route, router, cartService, fileValidate) {
+    function UpdateItemDetailsComponent(route, router, cartService, fileValidate, spinner) {
         this.route = route;
         this.router = router;
         this.cartService = cartService;
         this.fileValidate = fileValidate;
+        this.spinner = spinner;
         this.isImageChanged = false;
         // creating a form group and control for reactive forms
         this.inventoryForm = new forms_1.FormGroup({
@@ -25,8 +26,10 @@ var UpdateItemDetailsComponent = /** @class */ (function () {
         });
     }
     UpdateItemDetailsComponent.prototype.ngOnInit = function () {
+        this.spinner.show();
         this.base_url = this.cartService.url;
         this.getItem();
+        this.spinner.hide();
     };
     // gets the requested item from api
     UpdateItemDetailsComponent.prototype.getItem = function () {
@@ -38,20 +41,17 @@ var UpdateItemDetailsComponent = /** @class */ (function () {
                 console.log("in if");
                 _this.inventoryForm = new forms_1.FormGroup({
                     name: new forms_1.FormControl(item.name, [
-                        forms_1.Validators.required,
                         forms_1.Validators.pattern('[a-zA-Z ]*'),
                         forms_1.Validators.maxLength(50),
                     ]),
                     description: new forms_1.FormControl(item.description, [
-                        forms_1.Validators.required,
                         forms_1.Validators.pattern('[a-zA-Z0-9 ]{1,200}$'),
                         forms_1.Validators.maxLength(200),
                     ]),
                     price: new forms_1.FormControl(item.price, [
-                        forms_1.Validators.required,
                         forms_1.Validators.max(99999999),
                     ]),
-                    image: new forms_1.FormControl('', [forms_1.Validators.required])
+                    image: new forms_1.FormControl('')
                 });
                 _this.item = item;
                 console.log(_this.item);
@@ -65,8 +65,10 @@ var UpdateItemDetailsComponent = /** @class */ (function () {
     UpdateItemDetailsComponent.prototype["delete"] = function (item) {
         var _this = this;
         if (confirm("Are you sure to delete this item?")) {
+            // this.spinner.show();
             this.cartService.deleteItem(item).subscribe(function (success) {
                 _this.router.navigate(['/inventory']);
+                // this.spinner.hide();
             });
         }
     };
@@ -107,6 +109,8 @@ var UpdateItemDetailsComponent = /** @class */ (function () {
     };
     // requests to store the updated data to the db
     UpdateItemDetailsComponent.prototype.save = function () {
+        var _this = this;
+        this.spinner.show();
         this.item.name = this.inventoryForm.value.name;
         this.item.description = this.inventoryForm.value.description;
         this.item.price = this.inventoryForm.value.price;
@@ -116,7 +120,10 @@ var UpdateItemDetailsComponent = /** @class */ (function () {
         }
         this.cartService
             .updateItem(this.item, this.image, this.item.id)
-            .subscribe(function (success) { });
+            .subscribe(function (success) {
+            _this.router.navigate(['/inventory']);
+        });
+        this.spinner.hide();
     };
     __decorate([
         core_1.Input()

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from '../cart.service';
 import { ActivatedRoute } from '@angular/router';
 import { Inventory } from '../inventory';
+import { NgProgress } from 'ngx-progressbar';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-items-table',
@@ -13,21 +15,29 @@ export class ItemsTableComponent implements OnInit {
   items: Inventory[] = [];
   base_url: String;
 
-	constructor(private route: ActivatedRoute, private cartService: CartService) { }
+	constructor(
+    private route: ActivatedRoute, 
+    private cartService: CartService,
+    public ngProgress: NgProgress,
+    private spinner: NgxSpinnerService
+    ) { }
 
 	ngOnInit() {
+    // this.ngProgress.done();
     this.base_url = this.cartService.url;
 		this.getItems();
 	}
 
   // fetch all items from service class
 	getItems(): void {
+    this.spinner.show();
     this.cartService.getItems().subscribe((items) => {
       if(items && items.length > 0){
         this.items = items;
       } else {
         this.items = [];
       }
+      this.spinner.hide();
     });
   }
 

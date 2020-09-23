@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Inventory } from '../inventory';
 import { CartService } from '../cart.service';
 import { FileValidation } from '../file-validation';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-item-details',
@@ -27,7 +28,8 @@ export class UpdateItemDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private cartService: CartService,
-    private fileValidate: FileValidation
+    private fileValidate: FileValidation,
+    private spinner: NgxSpinnerService
   ) {}
 
   // creating a form group and control for reactive forms
@@ -39,8 +41,10 @@ export class UpdateItemDetailsComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.spinner.show();
     this.base_url = this.cartService.url;
     this.getItem();
+    this.spinner.hide();
   }
 
   // gets the requested item from api
@@ -52,20 +56,17 @@ export class UpdateItemDetailsComponent implements OnInit {
         console.log("in if");
         this.inventoryForm = new FormGroup({
           name: new FormControl(item.name, [
-            Validators.required,
             Validators.pattern('[a-zA-Z ]*'),
             Validators.maxLength(50),
           ]),
           description: new FormControl(item.description, [
-            Validators.required,
             Validators.pattern('[a-zA-Z0-9 ]{1,200}$'),
             Validators.maxLength(200),
           ]), // /^[a-zA-Z0-9 ]{1,200}$/
           price: new FormControl(item.price, [
-            Validators.required,
             Validators.max(99999999),
           ]),
-          image: new FormControl('', [Validators.required]),
+          image: new FormControl(''),
         });
         this.item = item;
         console.log(this.item);
@@ -78,8 +79,10 @@ export class UpdateItemDetailsComponent implements OnInit {
 
   delete(item: Inventory): void {
     if(confirm("Are you sure to delete this item?")) {
+      // this.spinner.show();
       this.cartService.deleteItem(item).subscribe(success=> {
         this.router.navigate(['/inventory']);
+        // this.spinner.hide();
       });
     }
 	}
@@ -121,6 +124,7 @@ export class UpdateItemDetailsComponent implements OnInit {
 
   // requests to store the updated data to the db
   save(): void {
+    this.spinner.show();
     this.item.name = this.inventoryForm.value.name;
     this.item.description = this.inventoryForm.value.description;
     this.item.price = this.inventoryForm.value.price;
@@ -130,6 +134,9 @@ export class UpdateItemDetailsComponent implements OnInit {
     }
     this.cartService
       .updateItem(this.item, this.image, this.item.id)
-      .subscribe((success) => {});
+      .subscribe((success) => {
+        this.router.navigate(['/inventory']);
+    });
+    this.spinner.hide();
   }
 }

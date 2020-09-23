@@ -37,29 +37,41 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var testing_1 = require("@angular/core/testing");
+var common_1 = require("@angular/common");
+var router_1 = require("@angular/router");
+var http_1 = require("@angular/common/http");
 var view_item_component_1 = require("./view-item.component");
 describe('ViewItemComponent', function () {
     var component;
+    var crtsrv;
     var fixture;
+    // const fakeActivatedRoute = {
+    //   snapshot: { data: {  } }
+    // } as ActivatedRoute;
     beforeEach(function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, testing_1.TestBed.configureTestingModule({
-                        declarations: [view_item_component_1.ViewItemComponent]
+                        declarations: [view_item_component_1.ViewItemComponent],
+                        imports: [crtsrv, common_1.Location,
+                            ,
+                            router_1.Router, http_1.HttpClientModule]
                     })
                         .compileComponents()];
                 case 1:
                     _a.sent();
+                    fixture = testing_1.TestBed.createComponent(view_item_component_1.ViewItemComponent);
+                    component = fixture.componentInstance;
                     return [2 /*return*/];
             }
         });
     }); });
-    beforeEach(function () {
-        fixture = testing_1.TestBed.createComponent(view_item_component_1.ViewItemComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
+    // beforeEach(() => {
+    //   fixture = TestBed.createComponent(ViewItemComponent);
+    //   component = fixture.componentInstance;
+    //   fixture.detectChanges();
+    // });
+    it('should create', function () {
+        expect(component).toBeTruthy();
     });
-    /* it('should create', () => {
-      expect(component).toBeTruthy();
-    }); */
 });

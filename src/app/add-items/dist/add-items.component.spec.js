@@ -37,15 +37,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var testing_1 = require("@angular/core/testing");
+var testing_2 = require("@angular/common/http/testing");
+var cart_service_1 = require("../cart.service");
 var add_items_component_1 = require("./add-items.component");
-describe('AddItemsComponent', function () {
+describe('Shallow', function () {
     var component;
     var fixture;
     beforeEach(function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, testing_1.TestBed.configureTestingModule({
-                        declarations: [add_items_component_1.AddItemsComponent]
+                        declarations: [add_items_component_1.AddItemsComponent],
+                        imports: [testing_2.HttpClientTestingModule],
+                        providers: [cart_service_1.CartService, add_items_component_1.AddItemsComponent]
                     })
                         .compileComponents()];
                 case 1:
@@ -54,15 +58,43 @@ describe('AddItemsComponent', function () {
             }
         });
     }); });
-    beforeEach(function () {
-        fixture = testing_1.TestBed.createComponent(add_items_component_1.AddItemsComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
+    /* it('should send credentials on submit', () => {
+      let fixture = TestBed.createComponent(AddItemsComponent);
+      let component: AddItemsComponent = fixture.componentInstance;
+      let element = fixture.nativeElement;
+  
+      fixture.detectChanges();
+  
+      element.querySelector('#name').value = expectedEmail;
+      element.querySelector('#name').dispatchEvent(new Event('input'));
+      element.querySelector('#login-password').value = expectedPassword;
+      element.querySelector('#login-password').dispatchEvent(new Event('input'));
+  
+      fixture.detectChanges();
+  
+      component.isProcessing.subscribe(({ email, password }) => {
+        expect(email).toEqual(expectedEmail);
+        expect(password).toEqual(expectedPassword);
+      });
+  
+      element.querySelector('button[type="submit"]').click();
+    }); */
+    beforeEach(testing_1.inject([add_items_component_1.AddItemsComponent], function (addItems) {
+        component = addItems;
+    }));
+    it("should form check", function () {
+        var name = component.addItemForm.controls['name'];
+        name.setValue("!@#");
+        var price = component.addItemForm.controls['price'];
+        price.setValue(5000);
+        var description = component.addItemForm.controls['description'];
+        description.setValue("new mobile Mobile test");
+        expect(component.addItemForm.invalid).toBeTruthy();
     });
-    it('should create', function () {
-        expect(component).toBeTruthy();
-    });
-    it('should not create', function () {
-        expect(component).toBeFalsy();
-    });
+    // it('should create', () => {
+    //   expect(component).toBeDefined();
+    // });
+    // it('should not create', () => {
+    //   expect(component).toBeFalsy();
+    // });
 });

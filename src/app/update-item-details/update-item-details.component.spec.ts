@@ -1,4 +1,4 @@
-import { ComponentFixture, async, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, inject, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { from, of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -6,7 +6,6 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CartService } from '../cart.service';
 import { delay } from 'rxjs/operators';
 import { UpdateItemDetailsComponent } from './update-item-details.component';
-// import { DynamicFormComponent } from './dynamic-form.component';
 
 describe('UpdateItemDetailsComponent', () => {
   let component: UpdateItemDetailsComponent;
@@ -20,13 +19,13 @@ describe('UpdateItemDetailsComponent', () => {
     .compileComponents();
   });
 
-  beforeEach(() => {
+  /* beforeEach(() => {
     fixture = TestBed.createComponent(UpdateItemDetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+  }); */
 
-  /* it('should call getItem() and return []', fakeAsync(() => {
+  it('should call getItem() and return []', fakeAsync(() => {
     let fixture = TestBed.createComponent(UpdateItemDetailsComponent);
     let componentNew = fixture.debugElement.componentInstance;
     let appService = fixture.debugElement.injector.get(CartService);
@@ -38,7 +37,22 @@ describe('UpdateItemDetailsComponent', () => {
     expect(componentNew.items).toEqual(null);
   }))
 
-  it('should create', () => {
+ /*  it('should create', () => {
     expect(TestBed.createComponent(UpdateItemDetailsComponent).componentInstance).toBeDefined();
   }); */
+
+  /* beforeEach(inject([UpdateItemDetailsComponent], (addItems: UpdateItemDetailsComponent) => {
+    component = addItems;
+  })); */
+
+  it("should form check", () => {
+    let name = component.inventoryForm.controls['name'];
+    name.setValue("!@#"); 
+    let price = component.inventoryForm.controls['price'];
+    price.setValue(5000);
+    let description = component.inventoryForm.controls['description'];
+    description.setValue("new mobile Mobile test");
+
+    expect(component.inventoryForm.invalid).toBeTruthy();
+  });
 });

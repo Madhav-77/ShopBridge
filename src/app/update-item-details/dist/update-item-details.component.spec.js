@@ -38,8 +38,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var testing_1 = require("@angular/core/testing");
 var forms_1 = require("@angular/forms");
+var rxjs_1 = require("rxjs");
+var cart_service_1 = require("../cart.service");
+var operators_1 = require("rxjs/operators");
 var update_item_details_component_1 = require("./update-item-details.component");
-// import { DynamicFormComponent } from './dynamic-form.component';
 describe('UpdateItemDetailsComponent', function () {
     var component;
     var fixture;
@@ -57,24 +59,35 @@ describe('UpdateItemDetailsComponent', function () {
             }
         });
     }); });
-    beforeEach(function () {
-        fixture = testing_1.TestBed.createComponent(update_item_details_component_1.UpdateItemDetailsComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-    });
-    /* it('should call getItem() and return []', fakeAsync(() => {
-      let fixture = TestBed.createComponent(UpdateItemDetailsComponent);
-      let componentNew = fixture.debugElement.componentInstance;
-      let appService = fixture.debugElement.injector.get(CartService);
-      let stub = spyOn(appService, "getItem").and.callFake(() => {
-        return of([]).pipe(delay(300));
-      })
-      componentNew.getItems();
-      tick(300);
-      expect(componentNew.items).toEqual(null);
-    }))
-  
-    it('should create', () => {
-      expect(TestBed.createComponent(UpdateItemDetailsComponent).componentInstance).toBeDefined();
+    /* beforeEach(() => {
+      fixture = TestBed.createComponent(UpdateItemDetailsComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
     }); */
+    it('should call getItem() and return []', testing_1.fakeAsync(function () {
+        var fixture = testing_1.TestBed.createComponent(update_item_details_component_1.UpdateItemDetailsComponent);
+        var componentNew = fixture.debugElement.componentInstance;
+        var appService = fixture.debugElement.injector.get(cart_service_1.CartService);
+        var stub = spyOn(appService, "getItem").and.callFake(function () {
+            return rxjs_1.of([]).pipe(operators_1.delay(300));
+        });
+        componentNew.getItems();
+        testing_1.tick(300);
+        expect(componentNew.items).toEqual(null);
+    }));
+    /*  it('should create', () => {
+       expect(TestBed.createComponent(UpdateItemDetailsComponent).componentInstance).toBeDefined();
+     }); */
+    /* beforeEach(inject([UpdateItemDetailsComponent], (addItems: UpdateItemDetailsComponent) => {
+      component = addItems;
+    })); */
+    it("should form check", function () {
+        var name = component.inventoryForm.controls['name'];
+        name.setValue("!@#");
+        var price = component.inventoryForm.controls['price'];
+        price.setValue(5000);
+        var description = component.inventoryForm.controls['description'];
+        description.setValue("new mobile Mobile test");
+        expect(component.inventoryForm.invalid).toBeTruthy();
+    });
 });

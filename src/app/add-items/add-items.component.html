@@ -5,7 +5,7 @@
 
 <!-- Modal to add items -->
 <ng-template #content let-modal>
-
+    <ngx-spinner size="medium" color="#fbfbfb"></ngx-spinner>
     <div class="modal-header">
         <h4 class="text-center">Add Items</h4>
     </div>
@@ -13,7 +13,7 @@
     <form [formGroup]="addItemForm" (submit)="save()">
         <div class="modal-body">
             <div class="form-group">
-                <input class="form-control" value="{{item.name}}" formControlName="name" pattern="[a-zA-Z ]*" placeholder="Item Name" maxlength="50" required>
+                <input class="form-control" id="name" value="{{item.name}}" formControlName="name" pattern="[a-zA-Z ]*" placeholder="Item Name" maxlength="50" required>
 
                 <!-- name validation -->
                 <div *ngIf="addItemForm.get('name').invalid && addItemForm.get('name').touched" class="error">
@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <textarea class="form-control" #box (keyup)="0" value="{{item.description}}" formControlName="description" placeholder="Description" maxlength="200" required></textarea>
+                <textarea class="form-control" id="description" #box (keyup)="0" value="{{item.description}}" formControlName="description" placeholder="Description" maxlength="200" required></textarea>
                 <small *ngIf="box.value.length<200">The character count is {{box.value.length}}</small>
 
                 <!-- description validation -->
@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <input class="form-control" #price type="number" value="{{item.price}}" formControlName="price" placeholder="Price" min=1 max=99999999 required>
+                <input class="form-control" #price type="number" id="price" value="{{item.price}}" formControlName="price" placeholder="Price" min=1 max=99999999 required>
 
                 <!-- price validation -->
                 <div *ngIf="price.value > 99999999 || (addItemForm.get('price').invalid && addItemForm.get('price').touched)" class="error">

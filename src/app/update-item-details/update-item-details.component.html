@@ -23,7 +23,7 @@
                 <div class="form-group description">
 
                     <label for='desc'>Description</label>
-                    <textarea class="form-control" #box (keyup)="0" value="{{item.description}}" formControlName="description" placeholder="Description" maxlength="200" required></textarea>
+                    <textarea class="form-control" #box (keyup)="0" value="{{item.description}}" formControlName="description" placeholder="Description" maxlength="200"></textarea>
                     <small>The character count is {{box.value.length}}</small>
 
                     <!-- description validation -->
@@ -37,7 +37,7 @@
                 <div class="form-group">
 
                     <label for='price'>Price</label>
-                    <input class="form-control" #price type="number" value="{{item.price}}" formControlName="price" placeholder="Price" min=1 max=99999999 required>
+                    <input class="form-control" #price type="number" value="{{item.price}}" formControlName="price" placeholder="Price" min=1 max=99999999>
 
                     <!-- price validation -->
                     <div *ngIf="price.value > 99999999 || (inventoryForm.get('price').invalid && inventoryForm.get('price').touched)" class="error">
@@ -47,7 +47,7 @@
                 </div>
                 <div class="custom-file">
 
-                    <input id="img" class="custom-file-input" type="file" accept=".jpg, .jpeg, .png" #file (change)="getFileValidated(file.files, $event)" formControlName="image" required>
+                    <input id="img" class="custom-file-input" type="file" accept=".jpg, .jpeg, .png" #file (change)="getFileValidated(file.files, $event)" formControlName="image">
 
                     <!-- file validation -->
                     <div *ngIf="fileValidationErr!=true" class="error">

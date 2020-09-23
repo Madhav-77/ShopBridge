@@ -6,6 +6,7 @@ import { FileValidation } from '../file-validation';
 import { Inventory } from '../inventory';
 import { CartService } from '../cart.service';
 import { ItemsTableComponent } from '../items-table/items-table.component';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-add-items',
@@ -22,6 +23,7 @@ export class AddItemsComponent implements OnInit {
 
   public image: any = null;
   public isProcessing: boolean;
+  public testFlag: boolean;
 
   @ViewChild(ItemsTableComponent, { static: false }) itemsTable: ItemsTableComponent;
 
@@ -36,7 +38,8 @@ export class AddItemsComponent implements OnInit {
   constructor(
     private cart: CartService,
     private fileValidate: FileValidation,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private spinner: NgxSpinnerService
   ) {}
 
   openVerticallyCentered(content) {
@@ -58,6 +61,7 @@ export class AddItemsComponent implements OnInit {
   }
 
   save(): void {
+    this.spinner.show();
     this.item = this.addItemForm.value;
     console.log(this.item);
     this.isProcessing = true;
@@ -65,7 +69,9 @@ export class AddItemsComponent implements OnInit {
       this.isProcessing = false;
       this.itemsTable.getItems();
       this.addItemForm.reset({});
+      this.spinner.hide();
       this.closeModal();
+      this.testFlag = true;
       // console.log(res);
     }); //this.goBack()
   }

@@ -21,6 +21,10 @@ var update_item_details_component_1 = require("./update-item-details/update-item
 var view_item_component_1 = require("./view-item/view-item.component");
 var header_component_1 = require("./header/header.component");
 var footer_component_1 = require("./footer/footer.component");
+var page_not_found_component_1 = require("./page-not-found/page-not-found.component");
+var home_component_1 = require("./home/home.component");
+var ngx_spinner_1 = require("ngx-spinner");
+var animations_1 = require("@angular/platform-browser/animations");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -34,6 +38,8 @@ var AppModule = /** @class */ (function () {
                 view_item_component_1.ViewItemComponent,
                 header_component_1.HeaderComponent,
                 footer_component_1.FooterComponent,
+                page_not_found_component_1.PageNotFoundComponent,
+                home_component_1.HomeComponent,
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -41,7 +47,9 @@ var AppModule = /** @class */ (function () {
                 ng_bootstrap_1.NgbModule,
                 http_1.HttpClientModule,
                 forms_1.ReactiveFormsModule,
-                common_1.CommonModule
+                common_1.CommonModule,
+                ngx_spinner_1.NgxSpinnerModule,
+                animations_1.BrowserAnimationsModule
             ],
             providers: [],
             bootstrap: [app_component_1.AppComponent]

@@ -9,18 +9,22 @@ exports.__esModule = true;
 exports.ItemsTableComponent = void 0;
 var core_1 = require("@angular/core");
 var ItemsTableComponent = /** @class */ (function () {
-    function ItemsTableComponent(route, cartService) {
+    function ItemsTableComponent(route, cartService, ngProgress, spinner) {
         this.route = route;
         this.cartService = cartService;
+        this.ngProgress = ngProgress;
+        this.spinner = spinner;
         this.items = [];
     }
     ItemsTableComponent.prototype.ngOnInit = function () {
+        // this.ngProgress.done();
         this.base_url = this.cartService.url;
         this.getItems();
     };
     // fetch all items from service class
     ItemsTableComponent.prototype.getItems = function () {
         var _this = this;
+        this.spinner.show();
         this.cartService.getItems().subscribe(function (items) {
             if (items && items.length > 0) {
                 _this.items = items;
@@ -28,6 +32,7 @@ var ItemsTableComponent = /** @class */ (function () {
             else {
                 _this.items = [];
             }
+            _this.spinner.hide();
         });
     };
     // passing item to service class for delete request
