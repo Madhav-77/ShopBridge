@@ -21,7 +21,8 @@ export class UpdateItemDetailsComponent implements OnInit {
   public imgURL: any;
   public isImageChanged: boolean = false;
   public imagePath;
-  public fileValidationErr: any;
+  public fileValidationErrCode: boolean = true;
+  public fileValidationErrMsg: String = "";
   public base_url: String;
 
   constructor(
@@ -51,7 +52,7 @@ export class UpdateItemDetailsComponent implements OnInit {
   getItem(): void {
     const item_id = +this.route.snapshot.paramMap.get('id');
     this.cartService.getItem(item_id).subscribe((item) => {
-      console.log(item);
+      // console.log(item);
       if (item) {
         console.log("in if");
         this.inventoryForm = new FormGroup({
@@ -64,7 +65,7 @@ export class UpdateItemDetailsComponent implements OnInit {
             Validators.maxLength(200),
           ]), // /^[a-zA-Z0-9 ]{1,200}$/
           price: new FormControl(item.price, [
-            Validators.max(99999999),
+            Validators.max(99999999), Validators.required
           ]),
           image: new FormControl(''),
         });
@@ -91,21 +92,21 @@ export class UpdateItemDetailsComponent implements OnInit {
   getFileValidated(files, $event: Event) {
     let fileObj = $event.target['files'][0];
     let getFileStatus = this.fileValidate.getFileData(fileObj);
-    console.log(getFileStatus);
     if (getFileStatus == 0) {
       this.preview(files, $event);
-      this.fileValidationErr = true;
+      this.fileValidationErrCode = true;
     } else if (getFileStatus == 1) {
-      this.fileValidationErr = 'File size too large!';
+      this.fileValidationErrCode = false;
+      this.fileValidationErrMsg = 'File size too large!';
     } else {
-      this.fileValidationErr = 'Invalid file type';
+      this.fileValidationErrCode = false;
+      this.fileValidationErrMsg = 'Invalid file type';
     }
   }
 
   // displays a file before uploading
   preview(files, $event: Event) {
     this.image = $event.target['files'];
-    console.log(this.image);
     this.isImageChanged = true;
     if (files.length === 0) return;
 
@@ -128,10 +129,7 @@ export class UpdateItemDetailsComponent implements OnInit {
     this.item.name = this.inventoryForm.value.name;
     this.item.description = this.inventoryForm.value.description;
     this.item.price = this.inventoryForm.value.price;
-    // in case of image is not updated
-    if (this.image == null) {
-      this.image = this.item.image;
-    }
+    
     this.cartService
       .updateItem(this.item, this.image, this.item.id)
       .subscribe((success) => {

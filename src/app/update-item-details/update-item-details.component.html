@@ -50,12 +50,12 @@
                     <input id="img" class="custom-file-input" type="file" accept=".jpg, .jpeg, .png" #file (change)="getFileValidated(file.files, $event)" formControlName="image">
 
                     <!-- file validation -->
-                    <div *ngIf="fileValidationErr!=true" class="error">
-                        <small>{{ fileValidationErr }}</small>
+                    <div *ngIf="fileValidationErrCode != true" class="error">
+                        <small>{{ fileValidationErrMsg }}</small>
                     </div>
                 </div>
                 <!-- button disables if form is not valid -->
-                <button type="submit" [disabled]="inventoryForm.invalid || fileValidationErr!=true" class="float-right btn btn-primary">Save Edits</button>
+                <button type="submit" [disabled]="inventoryForm.invalid || fileValidationErrCode!=true" class="float-right btn btn-primary">Save Edits</button>
                 <button (click)="delete(item)" class="float-right btn btn-danger">Delete</button>
             </div>
         </div>

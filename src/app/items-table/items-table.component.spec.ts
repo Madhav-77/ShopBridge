@@ -44,7 +44,7 @@ describe('ItemsTableComponent', () => {
     let appService = fixture.debugElement.injector.get(CartService);
     let stub = spyOn(appService, "getItems").and.callFake(() => {
       return of([]).pipe(delay(300));
-    })
+    });
     component.getItems();
     tick(300);
     expect(component.items).toEqual([]);

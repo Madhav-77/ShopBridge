@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 export class FileValidation{
 
   // extensions array
-  allowedExt = ['jpg', 'jpeg', 'png'];
+  allowedExt = ['png', 'jpeg', 'jpg'];
   // file size upto 5MB
   allowedFileSize = 5 * 1024 * 1024;
 
@@ -32,9 +32,10 @@ export class FileValidation{
   validateFileExt(filename: String) {
     var ext = filename.substring(filename.lastIndexOf('.') + 1);
 
-    // indexOf will return -1 if obj not found in arr
-    let fileTypeCheck = this.allowedExt.indexOf(ext);
-    if (fileTypeCheck > 0) {
+    // indexOf will return false if obj not found in arr
+    let fileTypeCheck = this.allowedExt.includes(ext);
+    // return fileTypeCheck;
+    if (fileTypeCheck) {
         return true;
     } else {
         return false;

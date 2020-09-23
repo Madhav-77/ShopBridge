@@ -17,9 +17,12 @@ export class CartService {
   // url = 'https://services-flask-api.herokuapp.com';
   constructor(private http: HttpClient) {}
 
+  item: any;
+  
   // gets all items from the server
   getItems(): Observable<Inventory[]> {
-    return this.http.get<Inventory[]>(this.url + '/items');
+    this.item = this.http.get<Inventory[]>(this.url + '/items');
+    return this.item;
   }
 
   // gets single item from the server

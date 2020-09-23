@@ -20,7 +20,8 @@ var CartService = /** @class */ (function () {
     }
     // gets all items from the server
     CartService.prototype.getItems = function () {
-        return this.http.get(this.url + '/items');
+        this.item = this.http.get(this.url + '/items');
+        return this.item;
     };
     // gets single item from the server
     CartService.prototype.getItem = function (id) {

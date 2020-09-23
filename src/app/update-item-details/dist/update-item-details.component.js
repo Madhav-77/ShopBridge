@@ -17,6 +17,8 @@ var UpdateItemDetailsComponent = /** @class */ (function () {
         this.fileValidate = fileValidate;
         this.spinner = spinner;
         this.isImageChanged = false;
+        this.fileValidationErrCode = true;
+        this.fileValidationErrMsg = "";
         // creating a form group and control for reactive forms
         this.inventoryForm = new forms_1.FormGroup({
             name: new forms_1.FormControl(),
@@ -36,7 +38,7 @@ var UpdateItemDetailsComponent = /** @class */ (function () {
         var _this = this;
         var item_id = +this.route.snapshot.paramMap.get('id');
         this.cartService.getItem(item_id).subscribe(function (item) {
-            console.log(item);
+            // console.log(item);
             if (item) {
                 console.log("in if");
                 _this.inventoryForm = new forms_1.FormGroup({
@@ -49,7 +51,7 @@ var UpdateItemDetailsComponent = /** @class */ (function () {
                         forms_1.Validators.maxLength(200),
                     ]),
                     price: new forms_1.FormControl(item.price, [
-                        forms_1.Validators.max(99999999),
+                        forms_1.Validators.max(99999999), forms_1.Validators.required
                     ]),
                     image: new forms_1.FormControl('')
                 });
@@ -76,23 +78,23 @@ var UpdateItemDetailsComponent = /** @class */ (function () {
     UpdateItemDetailsComponent.prototype.getFileValidated = function (files, $event) {
         var fileObj = $event.target['files'][0];
         var getFileStatus = this.fileValidate.getFileData(fileObj);
-        console.log(getFileStatus);
         if (getFileStatus == 0) {
             this.preview(files, $event);
-            this.fileValidationErr = true;
+            this.fileValidationErrCode = true;
         }
         else if (getFileStatus == 1) {
-            this.fileValidationErr = 'File size too large!';
+            this.fileValidationErrCode = false;
+            this.fileValidationErrMsg = 'File size too large!';
         }
         else {
-            this.fileValidationErr = 'Invalid file type';
+            this.fileValidationErrCode = false;
+            this.fileValidationErrMsg = 'Invalid file type';
         }
     };
     // displays a file before uploading
     UpdateItemDetailsComponent.prototype.preview = function (files, $event) {
         var _this = this;
         this.image = $event.target['files'];
-        console.log(this.image);
         this.isImageChanged = true;
         if (files.length === 0)
             return;
@@ -114,10 +116,6 @@ var UpdateItemDetailsComponent = /** @class */ (function () {
         this.item.name = this.inventoryForm.value.name;
         this.item.description = this.inventoryForm.value.description;
         this.item.price = this.inventoryForm.value.price;
-        // in case of image is not updated
-        if (this.image == null) {
-            this.image = this.item.image;
-        }
         this.cartService
             .updateItem(this.item, this.image, this.item.id)
             .subscribe(function (success) {

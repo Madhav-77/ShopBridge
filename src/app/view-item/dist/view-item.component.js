@@ -9,10 +9,9 @@ exports.__esModule = true;
 exports.ViewItemComponent = void 0;
 var core_1 = require("@angular/core");
 var ViewItemComponent = /** @class */ (function () {
-    function ViewItemComponent(route, cartService, location, navigateViaRouter) {
+    function ViewItemComponent(route, cartService, navigateViaRouter) {
         this.route = route;
         this.cartService = cartService;
-        this.location = location;
         this.navigateViaRouter = navigateViaRouter;
     }
     ViewItemComponent.prototype.ngOnInit = function () {

@@ -37,14 +37,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var testing_1 = require("@angular/core/testing");
-var common_1 = require("@angular/common");
+var testing_2 = require("@angular/router/testing");
+var cart_service_1 = require("../cart.service");
 var router_1 = require("@angular/router");
-var http_1 = require("@angular/common/http");
+var testing_3 = require("@angular/common/http/testing");
 var view_item_component_1 = require("./view-item.component");
 describe('ViewItemComponent', function () {
     var component;
-    var crtsrv;
     var fixture;
+    var httpTestingController;
+    var service;
     // const fakeActivatedRoute = {
     //   snapshot: { data: {  } }
     // } as ActivatedRoute;
@@ -53,25 +55,59 @@ describe('ViewItemComponent', function () {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, testing_1.TestBed.configureTestingModule({
                         declarations: [view_item_component_1.ViewItemComponent],
-                        imports: [crtsrv, common_1.Location,
-                            ,
-                            router_1.Router, http_1.HttpClientModule]
-                    })
-                        .compileComponents()];
+                        imports: [router_1.Router, testing_3.HttpClientTestingModule],
+                        providers: [cart_service_1.CartService, testing_2.RouterTestingModule]
+                    }).compileComponents()];
                 case 1:
                     _a.sent();
+                    service = testing_1.TestBed.call(cart_service_1.CartService);
+                    httpTestingController = testing_1.TestBed.call(cart_service_1.CartService);
                     fixture = testing_1.TestBed.createComponent(view_item_component_1.ViewItemComponent);
                     component = fixture.componentInstance;
                     return [2 /*return*/];
             }
         });
     }); });
-    // beforeEach(() => {
-    //   fixture = TestBed.createComponent(ViewItemComponent);
-    //   component = fixture.componentInstance;
-    //   fixture.detectChanges();
-    // });
-    it('should create', function () {
-        expect(component).toBeTruthy();
+    beforeEach(function () {
+        testing_1.TestBed.configureTestingModule({
+            imports: [testing_3.HttpClientTestingModule],
+            providers: [cart_service_1.CartService, testing_2.RouterTestingModule]
+        });
+        // Returns a service with the MockBackend so we can test with dummy responses
+        service = testing_1.TestBed.call(cart_service_1.CartService);
+        // Inject the http service and test controller for each test
+        httpTestingController = testing_1.TestBed.call(testing_3.HttpTestingController);
     });
+    afterEach(function () {
+        // After every test, assert that there are no more pending requests.
+        httpTestingController.verify();
+    });
+    it('search should return SearchItems', testing_1.fakeAsync(function () {
+        var response = {
+            resultCount: 1,
+            results: [
+                {
+                    id: 1,
+                    name: 'test',
+                    description: 'Testing Unit',
+                    price: '1234'
+                },
+            ]
+        };
+        // Perform a request (this is fakeAsync to the responce won't be called until tick() is called)
+        service.getItem(1);
+        // Expect a call to this URL
+        var req = httpTestingController.expectOne('http://127.0.0.1:5000/item/1');
+        // Assert that the request is a GET.
+        expect(req.request.method).toEqual('GET');
+        // Respond with this data when called
+        req.flush(response);
+        // Call tick whic actually processes te response
+        testing_1.tick();
+        // Run our tests
+        expect(service.item.length).toBe(1);
+        expect(service.item[0].id).toBe('test');
+        expect(service.item[0].name).toBe('Testing Unit');
+        expect(service.item[0].description).toBe('1234');
+    }));
 });

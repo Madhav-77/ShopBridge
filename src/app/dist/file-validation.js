@@ -12,7 +12,7 @@ var core_1 = require("@angular/core");
 var FileValidation = /** @class */ (function () {
     function FileValidation() {
         // extensions array
-        this.allowedExt = ['jpg', 'jpeg', 'png'];
+        this.allowedExt = ['png', 'jpeg', 'jpg'];
         // file size upto 5MB
         this.allowedFileSize = 5 * 1024 * 1024;
     }
@@ -36,9 +36,10 @@ var FileValidation = /** @class */ (function () {
     // validates extension
     FileValidation.prototype.validateFileExt = function (filename) {
         var ext = filename.substring(filename.lastIndexOf('.') + 1);
-        // indexOf will return -1 if obj not found in arr
-        var fileTypeCheck = this.allowedExt.indexOf(ext);
-        if (fileTypeCheck > 0) {
+        // indexOf will return false if obj not found in arr
+        var fileTypeCheck = this.allowedExt.includes(ext);
+        // return fileTypeCheck;
+        if (fileTypeCheck) {
             return true;
         }
         else {

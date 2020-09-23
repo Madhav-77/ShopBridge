@@ -21,28 +21,6 @@ describe('Shallow', () => {
     .compileComponents();
   });
 
-  /* it('should send credentials on submit', () => {
-    let fixture = TestBed.createComponent(AddItemsComponent);
-    let component: AddItemsComponent = fixture.componentInstance;
-    let element = fixture.nativeElement;
-
-    fixture.detectChanges();
-
-    element.querySelector('#name').value = expectedEmail;
-    element.querySelector('#name').dispatchEvent(new Event('input'));
-    element.querySelector('#login-password').value = expectedPassword;
-    element.querySelector('#login-password').dispatchEvent(new Event('input'));
-
-    fixture.detectChanges();
-
-    component.isProcessing.subscribe(({ email, password }) => {
-      expect(email).toEqual(expectedEmail);
-      expect(password).toEqual(expectedPassword);
-    });
-
-    element.querySelector('button[type="submit"]').click();
-  }); */
-
   beforeEach(inject([AddItemsComponent], (addItems: AddItemsComponent) => {
     component = addItems;
   }));

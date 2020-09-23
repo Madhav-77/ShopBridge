@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../cart.service';
-import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Inventory } from '../inventory';
 
@@ -17,7 +16,6 @@ export class ViewItemComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private cartService: CartService,
-    private location: Location,
     private navigateViaRouter: Router
   ) {}
 
