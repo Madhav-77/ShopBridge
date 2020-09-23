@@ -19,7 +19,8 @@ Install Angular
 ```bash
 npm install -g @angular/cli
 ```
-Navigate to the workspace folder, here it is ShopBridge.
+Download and save it in desired directory.
+Navigate to the workspace folder.
 
 Run the following command:
 
