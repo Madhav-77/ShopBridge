@@ -13,8 +13,8 @@ const httpOptions = {
 })
 
 export class CartService {
-  url = "http://127.0.0.1:5000";
-  // url = 'https://services-flask-api.herokuapp.com';
+  // url = "http://127.0.0.1:5000";
+  url = 'https://services-flask-api.herokuapp.com';
   constructor(private http: HttpClient) {}
 
   item: any;
